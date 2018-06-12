@@ -36,4 +36,7 @@ cols.extend(["offence_type", "variable_type", "value"])
 
 df = df[cols]
 
-df.to_csv("data_fixed.csv", index=False)
+df["value"] = pd.to_numeric(df["value"], errors='coerce')
+
+df.to_csv("timeliness-transparency-2017Q4.csv")
+
