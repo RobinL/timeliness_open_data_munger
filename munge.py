@@ -1,8 +1,13 @@
+# Purpose:  Convert our open data into Hadley Wickham's tidy data format
 import pandas as pd 
-
 
 df = pd.read_csv("https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/695412/cc-rdos-by-offence-group-q4-2017.csv")
 
+# Delete totals - these should not be present in tidy data
+drop = [c for c in df.columns if 'Total' in c]
+df = df.drop(drop, axis=1)
+
+# Melt data into tidy format. The open data in in a 'cross tabulation' type format
 df.columns = [c.lower() for c in df.columns]
 df.columns = [c.replace(" ", "_") for c in df.columns]
 
